@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "rick-and-morty-data",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/manuricobeltran/rick-and-morty-data",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7de72ecf15a125c11f95d9f0e0c88f4b55e49cbe"
+      }
+    }
+  ],
+  "version" : 2
+}
