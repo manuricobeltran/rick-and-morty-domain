@@ -19,4 +19,10 @@ extension Container {
             CharacterRepositoryDefault(remoteDataSource: self.characterRemoteDataSource())
         }.singleton
     }
+    
+    var getCharacterInteractor: Factory<GetCharacterInteractor> {
+        self {
+            GetCharacterInteractorDefault(repository: self.characterRepository())
+        }.singleton
+    }
 }

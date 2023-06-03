@@ -19,7 +19,7 @@ struct CharacterEntity: Entity {
     let image: String?
     let episode: [String]?
     let url: String?
-    let create: String?
+    let created: String?
 }
 
 struct CharacterLocationEntity: Entity {

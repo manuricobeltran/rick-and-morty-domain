@@ -1,6 +1,16 @@
-public struct RickAndMortyDomain {
-    public private(set) var text = "Hello, World!"
+import Foundation
+import Factory
 
-    public init() {
+public struct RMDomain {
+    
+    init() {
+        // Intentionally empty
+    }
+}
+
+public extension RMDomain {
+    
+    static var getCharacterInteractor: GetCharacterInteractor {
+        Container.shared.getCharacterInteractor()
     }
 }
