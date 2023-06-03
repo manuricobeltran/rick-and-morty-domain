@@ -13,10 +13,10 @@ extension CharacterEntity {
         RMCharacter(
             id: id ?? .zero,
             name: name ?? "",
-            status: CharacterStatus(rawValue: status ?? "") ?? .unknown,
+            status: CharacterStatus(rawValue: status?.lowercased() ?? "") ?? .unknown,
             species: species ?? "",
             type: type ?? "",
-            gender: Gender(rawValue: gender ?? "") ?? .unknown,
+            gender: Gender(rawValue: gender?.lowercased() ?? "") ?? .unknown,
             origin: origin?.toDomain() ?? .empty(),
             location: location?.toDomain() ?? .empty(),
             image: URL(string: image ?? ""),

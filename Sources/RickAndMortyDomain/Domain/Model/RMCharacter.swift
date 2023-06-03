@@ -47,14 +47,14 @@ public struct CharacterLocation: Model {
 }
 
 public enum CharacterStatus: String, Model {
-    case Alive
-    case Dead
+    case alive
+    case dead
     case unknown
 }
 
 public enum Gender: String, Model {
-    case Female
-    case Male
-    case Genderless
+    case female
+    case male
+    case genderless
     case unknown
 }
