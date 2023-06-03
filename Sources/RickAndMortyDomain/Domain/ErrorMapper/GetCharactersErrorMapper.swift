@@ -1,5 +1,5 @@
 //
-//  GetCharacterErrorMapper.swift
+//  GetCharactersErrorMapper.swift
 //  
 //
 //  Created by Manu Rico on 3/6/23.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum GetCharacterErrorMapper {
+enum GetCharactersErrorMapper {
     
-    static func map(_ error: DataError) -> GetCharacterError {
+    static func map(_ error: DataError) -> GetCharactersError {
         switch error {
         case .notFound:
             return .characterNotFound

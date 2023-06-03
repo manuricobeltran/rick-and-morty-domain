@@ -10,5 +10,13 @@ public extension RMDomain {
         public static var getCharacterInteractor: GetCharacterInteractor {
             Container.shared.getCharacterInteractor()
         }
+        
+        public static var getCharactersInteractor: GetCharactersInteractor {
+            Container.shared.getCharactersInteractor()
+        }
+        
+        public static var getAllCharactersInteractor: GetAllCharactersInteractor {
+            Container.shared.getAllCharactersInteractor()
+        }
     }
 }

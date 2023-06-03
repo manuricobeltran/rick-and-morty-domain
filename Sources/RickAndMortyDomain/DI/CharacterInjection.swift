@@ -25,4 +25,16 @@ extension Container {
             GetCharacterInteractorDefault(repository: self.characterRepository())
         }.singleton
     }
+    
+    var getCharactersInteractor: Factory<GetCharactersInteractor> {
+        self {
+            GetCharactersInteractorDefault(repository: self.characterRepository())
+        }.singleton
+    }
+    
+    var getAllCharactersInteractor: Factory<GetAllCharactersInteractor> {
+        self {
+            GetAllCharactersInteractorDefault(repository: self.characterRepository())
+        }.singleton
+    }
 }
