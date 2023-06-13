@@ -33,8 +33,7 @@ extension GetAllCharactersInteractorDefault: GetAllCharactersInteractor {
     
     public func execute(page: Int?) async throws -> [RMCharacter] {
         do {
-            let characters = try await repository.getAllCharacters(page)
-            return characters.map { $0.toDomain() }
+            return try await repository.getAllCharacters(page).map { $0.toDomain() }
         } catch let error as DataError {
             throw GetCharactersErrorMapper.map(error)
         } catch {
