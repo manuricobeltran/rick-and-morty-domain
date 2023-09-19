@@ -8,10 +8,3 @@
 import Foundation
 
 protocol Entity: Codable {}
-
-struct EmptyEntity: Entity {}
-
-struct EntityWithHeaders<D: Codable, H: Codable>: Entity {
-    var data: D?
-    var headers: H?
-}

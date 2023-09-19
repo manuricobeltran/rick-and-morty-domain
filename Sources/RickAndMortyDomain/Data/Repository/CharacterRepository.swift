@@ -44,6 +44,9 @@ extension CharacterRepositoryDefault {
     
     func getAllCharacters(_ page: Int?) -> AnyPublisher<[CharacterEntity], DataError> {
         remote.getAllCharacters(page)
+            .map(\.results)
+            .replaceNil(with: [])
+            .eraseToAnyPublisher()
     }
 }
 
