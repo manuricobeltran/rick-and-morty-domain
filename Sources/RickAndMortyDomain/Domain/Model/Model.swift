@@ -7,4 +7,4 @@
 
 import Foundation
 
-protocol Model: Equatable {}
+protocol Model: Equatable, Identifiable {}
