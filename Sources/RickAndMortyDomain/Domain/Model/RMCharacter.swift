@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RMCharacter: Model {
+public struct RMCharacter: Model, Identifiable {
     public let id: Int
     public let name: String
     public let status: CharacterStatus
