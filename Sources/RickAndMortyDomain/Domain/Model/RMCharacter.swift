@@ -23,7 +23,7 @@ public struct RMCharacter: Model, Identifiable {
 
 public extension RMCharacter {
     
-    public static var empty: Self {
+    static var empty: Self {
         .init(
             id: .zero,
             name: "",
@@ -39,12 +39,12 @@ public extension RMCharacter {
         )
     }
     
-    public static var mock: Self {
+    static var mock: Self {
         .init(
             id: Int.random(in: .zero...Int.max),
             name: "Character name",
             status: .alive,
-            species: "Species",
+            species: "Human",
             type: "Type",
             gender: .male,
             origin: .mock,
@@ -63,11 +63,11 @@ public struct RMCharacterLocation: Model {
 
 public extension RMCharacterLocation {
     
-    public static var empty: Self {
+    static var empty: Self {
         .init(id: .zero, name: "")
     }
     
-    public static var mock: Self {
+    static var mock: Self {
         .init(
             id: Int.random(in: .zero...Int.max),
             name: "Character location"
