@@ -13,12 +13,12 @@ extension CharacterEntity {
         RMCharacter(
             id: id ?? .zero,
             name: name ?? "",
-            status: CharacterStatus(rawValue: status?.lowercased() ?? "") ?? .unknown,
+            status: RMCharacterStatus(rawValue: status?.lowercased() ?? "") ?? .unknown,
             species: species ?? "",
             type: type ?? "",
-            gender: Gender(rawValue: gender?.lowercased() ?? "") ?? .unknown,
-            origin: origin?.toDomain() ?? .empty(),
-            location: location?.toDomain() ?? .empty(),
+            gender: RMCharacterGender(rawValue: gender?.lowercased() ?? "") ?? .unknown,
+            origin: origin?.toDomain() ?? .empty,
+            location: location?.toDomain() ?? .empty,
             image: URL(string: image ?? ""),
             episode: episode.map { $0.compactMap { Int($0) } } ?? [],
             created: created?.toDate() ?? .now
@@ -28,8 +28,8 @@ extension CharacterEntity {
 
 extension CharacterLocationEntity {
     
-    func toDomain() -> CharacterLocation {
-        CharacterLocation(
+    func toDomain() -> RMCharacterLocation {
+        .init(
             id: url?.extractIdParameter() ?? .zero,
             name: name ?? ""
         )
