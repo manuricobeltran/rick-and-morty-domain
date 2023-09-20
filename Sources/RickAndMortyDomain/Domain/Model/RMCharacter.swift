@@ -43,10 +43,10 @@ public extension RMCharacter {
         .init(
             id: Int.random(in: .zero...Int.max),
             name: "Character name",
-            status: .alive,
+            status: .mock,
             species: "Human",
             type: "Type",
-            gender: .male,
+            gender: .mock,
             origin: .mock,
             location: .mock,
             image: nil,
@@ -75,15 +75,23 @@ public extension RMCharacterLocation {
     }
 }
 
-public enum RMCharacterStatus: String, Model {
+public enum RMCharacterStatus: String, Model, CaseIterable {
     case alive
     case dead
     case unknown
+    
+    static var mock: Self {
+        allCases.randomElement() ?? .unknown
+    }
 }
 
-public enum RMCharacterGender: String, Model {
+public enum RMCharacterGender: String, Model, CaseIterable {
     case female
     case male
     case genderless
     case unknown
+    
+    static var mock: Self {
+        allCases.randomElement() ?? .unknown
+    }
 }
