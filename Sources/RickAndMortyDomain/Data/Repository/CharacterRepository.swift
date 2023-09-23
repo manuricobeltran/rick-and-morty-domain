@@ -12,11 +12,11 @@ protocol CharacterRepository {
     /// Reactive
     func getCharacter(withId id: Int) -> AnyPublisher<CharacterEntity, DataError>
     func getCharacters(withIds ids: [Int]) -> AnyPublisher<[CharacterEntity], DataError>
-    func getAllCharacters(_ page: Int?) -> AnyPublisher<[CharacterEntity], DataError>
+    func getAllCharacters(_ page: Int?) -> AnyPublisher<PaginatedEntity<[CharacterEntity]>, DataError>
     /// Async
     func getCharacter(withId id: Int) async throws -> CharacterEntity
     func getCharacters(withIds ids: [Int]) async throws -> [CharacterEntity]
-    func getAllCharacters(_ page: Int?) async throws -> [CharacterEntity]
+    func getAllCharacters(_ page: Int?) async throws -> PaginatedEntity<[CharacterEntity]>
 }
 
 final class CharacterRepositoryDefault: CharacterRepository {
@@ -42,11 +42,8 @@ extension CharacterRepositoryDefault {
         return remote.getCharacters(withIds: ids)
     }
     
-    func getAllCharacters(_ page: Int?) -> AnyPublisher<[CharacterEntity], DataError> {
+    func getAllCharacters(_ page: Int?) -> AnyPublisher<PaginatedEntity<[CharacterEntity]>, DataError> {
         remote.getAllCharacters(page)
-            .map(\.results)
-            .replaceNil(with: [])
-            .eraseToAnyPublisher()
     }
 }
 
@@ -64,7 +61,7 @@ extension CharacterRepositoryDefault {
         return try await remote.getCharacters(withIds: ids)
     }
     
-    func getAllCharacters(_ page: Int?) async throws -> [CharacterEntity] {
+    func getAllCharacters(_ page: Int?) async throws -> PaginatedEntity<[CharacterEntity]> {
         try await remote.getAllCharacters(page)
     }
 }

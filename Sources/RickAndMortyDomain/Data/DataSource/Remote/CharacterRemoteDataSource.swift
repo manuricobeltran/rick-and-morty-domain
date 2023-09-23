@@ -12,11 +12,11 @@ protocol CharacterRemoteDataSource {
     /// Reactive
     func getCharacter(withId id: Int) -> AnyPublisher<CharacterEntity, DataError>
     func getCharacters(withIds ids: [Int]) -> AnyPublisher<[CharacterEntity], DataError>
-    func getAllCharacters(_ page: Int?) -> AnyPublisher<PaginatedResponse<[CharacterEntity]>, DataError>
+    func getAllCharacters(_ page: Int?) -> AnyPublisher<PaginatedEntity<[CharacterEntity]>, DataError>
     /// Async
     func getCharacter(withId id: Int) async throws -> CharacterEntity
     func getCharacters(withIds ids: [Int]) async throws -> [CharacterEntity]
-    func getAllCharacters(_ page: Int?) async throws -> [CharacterEntity]
+    func getAllCharacters(_ page: Int?) async throws -> PaginatedEntity<[CharacterEntity]>
 }
 
 final class CharacterRemoteDataSourceDefault: CharacterRemoteDataSource { }
@@ -38,7 +38,7 @@ extension CharacterRemoteDataSourceDefault {
         return NetworkDataSource.run(request)
     }
     
-    func getAllCharacters(_ page: Int?) -> AnyPublisher<PaginatedResponse<[CharacterEntity]>, DataError> {
+    func getAllCharacters(_ page: Int?) -> AnyPublisher<PaginatedEntity<[CharacterEntity]>, DataError> {
         guard let request = API.Character.getAllCharacters(page).urlRequest else {
             return Fail(error: DataError.invalidUrl).eraseToAnyPublisher()
         }
@@ -63,7 +63,7 @@ extension CharacterRemoteDataSourceDefault {
         return try await NetworkDataSource.run(request)
     }
     
-    func getAllCharacters(_ page: Int?) async throws -> [CharacterEntity] {
+    func getAllCharacters(_ page: Int?) async throws -> PaginatedEntity<[CharacterEntity]> {
         guard let request = API.Character.getAllCharacters(page).urlRequest else {
             throw DataError.invalidUrl
         }

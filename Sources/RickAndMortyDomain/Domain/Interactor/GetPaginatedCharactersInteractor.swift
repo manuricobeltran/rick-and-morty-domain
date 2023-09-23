@@ -38,12 +38,12 @@ extension GetPaginatedCharactersInteractorDefault: GetPaginatedCharactersInterac
         guard moreDataAvailable
         else { return }
         do {
-            let characters = try await repository.getAllCharacters(page).map { $0.toDomain() }
-            if characters.isEmpty {
+            let charactersPage = try await repository.getAllCharacters(page).toDomain()
+            if charactersPage.characters.isEmpty {
                 moreDataAvailable = false
                 subject.send(completion: .finished)
             } else {
-                subject.send(characters)
+                subject.send(charactersPage.characters)
             }
         } catch let error as DataError {
             let error = GetCharactersErrorMapper.map(error)

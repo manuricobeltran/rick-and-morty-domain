@@ -54,6 +54,11 @@ public extension RMCharacter {
             created: .now
         )
     }
+    
+    static var mockList: [Self] {
+        let listCount: Int = 20
+        return .init(repeating: .mock, count: listCount)
+    }
 }
 
 public struct RMCharacterLocation: Model {

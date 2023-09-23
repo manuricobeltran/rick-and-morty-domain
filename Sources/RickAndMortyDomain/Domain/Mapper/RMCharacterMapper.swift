@@ -1,5 +1,5 @@
 //
-//  CharacterMapper.swift
+//  RMCharacterMapper.swift
 //  
 //
 //  Created by Manu Rico on 3/6/23.
@@ -10,7 +10,7 @@ import Foundation
 extension CharacterEntity {
     
     func toDomain() -> RMCharacter {
-        RMCharacter(
+        .init(
             id: id ?? .zero,
             name: name ?? "",
             status: RMCharacterStatus(rawValue: status?.lowercased() ?? "") ?? .unknown,

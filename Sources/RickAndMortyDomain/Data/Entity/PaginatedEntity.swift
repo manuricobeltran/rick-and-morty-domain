@@ -1,5 +1,5 @@
 //
-//  PaginatedResponse.swift
+//  PaginatedEntity.swift
 //  
 //
 //  Created by Manu Rico on 19/9/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PaginatedResponse<R: Decodable>: Decodable {
+struct PaginatedEntity<R: Decodable>: Decodable {
     let info: PageInfo?
     let results: R?
 }
