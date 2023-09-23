@@ -19,8 +19,8 @@ extension String {
 extension String {
     
     /// Extracts the id from the end of the url string.
-    /// It will return 20 from "https://rickandmortyapi.com/api/location/20"
+    /// It will return 2 from "https://rickandmortyapi.com/api/character/?page=2"
     func extractIdParameter() -> Int? {
-        Int(split(separator: "/").last ?? "")
+        Int(split(separator: "=").last ?? "")
     }
 }
