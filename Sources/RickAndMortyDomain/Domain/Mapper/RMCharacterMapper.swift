@@ -20,7 +20,7 @@ extension CharacterEntity {
             origin: origin?.toDomain() ?? .empty,
             location: location?.toDomain() ?? .empty,
             image: URL(string: image ?? ""),
-            episode: episode.map { $0.compactMap { Int($0) } } ?? [],
+            episode: episode.map { $0.compactMap { $0.extractIdParameter() } } ?? [],
             created: created?.toDate() ?? .now
         )
     }

@@ -12,8 +12,8 @@ extension PaginatedEntity<[CharacterEntity]> {
     func toDomain() -> RMCharactersPage {
         .init(
             pages: info?.pages ?? .zero,
-            prev: info?.prev?.extractIdParameter(),
-            next: info?.next?.extractIdParameter(),
+            prev: info?.prev?.extractPageParameter(),
+            next: info?.next?.extractPageParameter(),
             characters: results?.map { $0.toDomain() } ?? []
         )
     }
