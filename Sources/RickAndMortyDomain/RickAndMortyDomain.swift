@@ -19,4 +19,19 @@ public extension RMDomain {
             Container.shared.getAllCharactersInteractor()
         }
     }
+    
+    enum Episode {
+        
+        public static var getEpisodeInteractor: GetEpisodeInteractor {
+            Container.shared.getEpisodeInteractor()
+        }
+        
+        public static var getEpisodesInteractor: GetEpisodesInteractor {
+            Container.shared.getEpisodesInteractor()
+        }
+        
+        public static var getAllEpisodesInteractor: GetAllEpisodesInteractor {
+            Container.shared.getAllEpisodesInteractor()
+        }
+    }
 }

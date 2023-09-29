@@ -1,5 +1,5 @@
 //
-//  GetCharactersError.swift
+//  GetCharacterError.swift
 //  
 //
 //  Created by Manu Rico on 3/6/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum GetCharactersError: Error, Equatable {
+public enum GetCharacterError: Error, Equatable {
     
     case characterNotFound
     case undefined

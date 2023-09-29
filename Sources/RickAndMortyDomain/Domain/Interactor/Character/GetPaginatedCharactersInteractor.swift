@@ -5,11 +5,10 @@
 //  Created by Manu Rico on 18/6/23.
 //
 
-import Foundation
 import Combine
 
 public protocol GetPaginatedCharactersInteractor {
-    var publisher: AnyPublisher<[RMCharacter], GetCharactersError> { get }
+    var publisher: AnyPublisher<[RMCharacter], GetCharacterError> { get }
     
     func loadMore() async
 }
@@ -17,7 +16,7 @@ public protocol GetPaginatedCharactersInteractor {
 public final class GetPaginatedCharactersInteractorDefault {
     private let repository: CharacterRepository
     
-    private let subject = CurrentValueSubject<[RMCharacter], GetCharactersError>([])
+    private let subject = CurrentValueSubject<[RMCharacter], GetCharacterError>([])
     private var page: Int?
     private var moreDataAvailable: Bool = true
     
@@ -29,7 +28,7 @@ public final class GetPaginatedCharactersInteractorDefault {
 
 extension GetPaginatedCharactersInteractorDefault: GetPaginatedCharactersInteractor {
     
-    public var publisher: AnyPublisher<[RMCharacter], GetCharactersError> {
+    public var publisher: AnyPublisher<[RMCharacter], GetCharacterError> {
         subject
             .eraseToAnyPublisher()
     }
@@ -46,7 +45,7 @@ extension GetPaginatedCharactersInteractorDefault: GetPaginatedCharactersInterac
                 subject.send(charactersPage.characters)
             }
         } catch let error as DataError {
-            let error = GetCharactersErrorMapper.map(error)
+            let error = GetCharacterErrorMapper.map(error)
             moreDataAvailable = false
             subject.send(completion: .failure(error))
         } catch {

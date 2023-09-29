@@ -5,11 +5,10 @@
 //  Created by Manu Rico on 3/6/23.
 //
 
-import Foundation
 import Combine
 
 public protocol GetCharactersInteractor {
-    func execute(characterIds: [Int]) -> AnyPublisher<[RMCharacter], GetCharactersError>
+    func execute(characterIds: [Int]) -> AnyPublisher<[RMCharacter], GetCharacterError>
     func execute(characterIds: [Int]) async throws -> [RMCharacter]
 }
 
@@ -24,10 +23,10 @@ public final class GetCharactersInteractorDefault {
 
 extension GetCharactersInteractorDefault: GetCharactersInteractor {
     
-    public func execute(characterIds: [Int]) -> AnyPublisher<[RMCharacter], GetCharactersError> {
+    public func execute(characterIds: [Int]) -> AnyPublisher<[RMCharacter], GetCharacterError> {
         repository.getCharacters(withIds: characterIds)
             .map { $0.map { $0.toDomain() } }
-            .mapError { GetCharactersErrorMapper.map($0) }
+            .mapError { GetCharacterErrorMapper.map($0) }
             .eraseToAnyPublisher()
     }
     
@@ -36,9 +35,9 @@ extension GetCharactersInteractorDefault: GetCharactersInteractor {
             let characters = try await repository.getCharacters(withIds: characterIds)
             return characters.map { $0.toDomain() }
         } catch let error as DataError {
-            throw GetCharactersErrorMapper.map(error)
+            throw GetCharacterErrorMapper.map(error)
         } catch {
-            throw GetCharactersError.undefined
+            throw GetCharacterError.undefined
         }
     }
 }

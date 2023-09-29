@@ -1,27 +1,27 @@
 //
-//  RMCharactersPage.swift
-//  
+//  RMEpisodesPage.swift
 //
-//  Created by Manu Rico on 23/9/23.
+//
+//  Created by Manu Rico on 29/9/23.
 //
 
 import Foundation
 
-public struct RMCharactersPage: Model {
+public struct RMEpisodesPage: Model {
     public let pages: Int
     public let prev: Int?
     public let next: Int?
-    public let characters: [RMCharacter]
+    public let episodes: [RMEpisode]
 }
 
-public extension RMCharactersPage {
+public extension RMEpisodesPage {
     
     static var empty: Self {
         .init(
             pages: .zero,
             prev: nil,
             next: nil,
-            characters: []
+            episodes: []
         )
     }
     
@@ -30,7 +30,7 @@ public extension RMCharactersPage {
             pages: 1,
             prev: nil,
             next: nil,
-            characters: RMCharacter.mockList
+            episodes: RMEpisode.mockList
         )
     }
 }
