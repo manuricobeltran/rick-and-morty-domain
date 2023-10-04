@@ -11,7 +11,7 @@ public struct RMEpisode: Model, Identifiable {
     public let id: Int
     public let episode: String
     public let name: String
-    public let airDate: Date
+    public let airDate: String
     public let characters: [Int]
 }
 
@@ -22,7 +22,7 @@ public extension RMEpisode {
             id: .zero,
             episode: "",
             name: "",
-            airDate: .now,
+            airDate: "",
             characters: []
         )
     }
@@ -32,7 +32,7 @@ public extension RMEpisode {
             id: Int.random(in: .zero...Int.max),
             episode: "S01E01",
             name: "Episode name",
-            airDate: .now,
+            airDate: "December 2, 2013",
             characters: [Int.random(in: .zero...Int.max)]
         )
     }

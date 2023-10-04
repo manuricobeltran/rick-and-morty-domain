@@ -14,7 +14,7 @@ extension EpisodeEntity {
             id: id ?? .zero,
             episode: episode ?? "",
             name: name ?? "",
-            airDate: airDate?.toDate() ?? .now,
+            airDate: airDate ?? "",
             characters: characters.map { $0.compactMap { $0.extractIdParameter() } } ?? []
         )
     }
