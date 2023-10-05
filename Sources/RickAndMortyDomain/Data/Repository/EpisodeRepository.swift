@@ -38,6 +38,9 @@ extension EpisodeRepositoryDefault {
         guard !ids.isEmpty else {
             return Fail(error: DataError.invalidUrl).eraseToAnyPublisher()
         }
+        if ids.count == 1, let id = ids.first {
+            return remote.getEpisode(withId: id).collect().eraseToAnyPublisher()
+        }
         return remote.getEpisodes(withIds: ids)
     }
     
@@ -56,6 +59,9 @@ extension EpisodeRepositoryDefault {
     func getEpisodes(withIds ids: [Int]) async throws -> [EpisodeEntity] {
         guard !ids.isEmpty else {
             throw DataError.invalidUrl
+        }
+        if ids.count == 1, let id = ids.first {
+            return try await [remote.getEpisode(withId: id)]
         }
         return try await remote.getEpisodes(withIds: ids)
     }

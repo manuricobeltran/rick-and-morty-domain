@@ -39,6 +39,9 @@ extension CharacterRepositoryDefault {
         guard !ids.isEmpty else {
             return Fail(error: DataError.invalidUrl).eraseToAnyPublisher()
         }
+        if ids.count == 1, let id = ids.first {
+            return remote.getCharacter(withId: id).collect().eraseToAnyPublisher()
+        }
         return remote.getCharacters(withIds: ids)
     }
     
@@ -57,6 +60,9 @@ extension CharacterRepositoryDefault {
     func getCharacters(withIds ids: [Int]) async throws -> [CharacterEntity] {
         guard !ids.isEmpty else {
             throw DataError.invalidUrl
+        }
+        if ids.count == 1, let id = ids.first {
+            return try await [remote.getCharacter(withId: id)]
         }
         return try await remote.getCharacters(withIds: ids)
     }
