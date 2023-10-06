@@ -12,4 +12,3 @@ public enum GetLocationError: Error, Equatable {
     case locationNotFound
     case undefined
 }
-
