@@ -18,7 +18,6 @@ public struct RMCharacter: Model, Identifiable {
     public let location: RMCharacterLocation
     public let image: URL?
     public let episode: [Int]
-    public let created: Date
 }
 
 public extension RMCharacter {
@@ -34,8 +33,7 @@ public extension RMCharacter {
             origin: .empty,
             location: .empty,
             image: nil,
-            episode: [],
-            created: .now
+            episode: []        
         )
     }
     
@@ -50,8 +48,7 @@ public extension RMCharacter {
             origin: .mock,
             location: .mock,
             image: nil,
-            episode: [Int.random(in: .zero...Int.max)],
-            created: .now
+            episode: [Int.random(in: .zero...Int.max)]
         )
     }
     

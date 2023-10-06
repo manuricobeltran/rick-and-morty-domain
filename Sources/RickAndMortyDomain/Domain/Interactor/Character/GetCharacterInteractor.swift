@@ -32,8 +32,7 @@ extension GetCharacterInteractorDefault: GetCharacterInteractor {
     
     public func execute(characterId: Int) async throws -> RMCharacter {
         do {
-            let character = try await repository.getCharacter(withId: characterId)
-            return character.toDomain()
+            return try await repository.getCharacter(withId: characterId).toDomain()
         } catch let error as DataError {
             throw GetCharacterErrorMapper.map(error)
         } catch {

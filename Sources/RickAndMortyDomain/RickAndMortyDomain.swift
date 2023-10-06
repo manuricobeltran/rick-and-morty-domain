@@ -34,4 +34,19 @@ public extension RMDomain {
             Container.shared.getAllEpisodesInteractor()
         }
     }
+    
+    enum Location {
+        
+        public static var getLocationInteractor: GetLocationInteractor {
+            Container.shared.getLocationInteractor()
+        }
+        
+        public static var getLocationsInteractor: GetLocationsInteractor {
+            Container.shared.getLocationsInteractor()
+        }
+        
+        public static var getAllLocationsInteractor: GetAllLocationsInteractor {
+            Container.shared.getAllLocationsInteractor()
+        }
+    }
 }

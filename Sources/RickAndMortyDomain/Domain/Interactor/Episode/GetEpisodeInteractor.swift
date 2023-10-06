@@ -32,8 +32,7 @@ extension GetEpisodeInteractorDefault: GetEpisodeInteractor {
     
     public func execute(episodeId: Int) async throws -> RMEpisode {
         do {
-            let episode = try await repository.getEpisode(withId: episodeId)
-            return episode.toDomain()
+            return try await repository.getEpisode(withId: episodeId).toDomain()
         } catch let error as DataError {
             throw GetEpisodeErrorMapper.map(error)
         } catch {
