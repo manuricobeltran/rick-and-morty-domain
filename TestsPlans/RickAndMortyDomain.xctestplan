@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "EE007172-A090-4BA2-82F6-797F0CFDFA96",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "RickAndMortyDomainTests",
+        "name" : "RickAndMortyDomainTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "EndpointsTests",
+        "name" : "EndpointsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

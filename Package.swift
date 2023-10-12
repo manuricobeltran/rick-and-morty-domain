@@ -34,5 +34,8 @@ let package = Package(
         .testTarget(
             name: "RickAndMortyDomainTests",
             dependencies: ["RickAndMortyDomain"]),
+        .testTarget(
+            name: "EndpointsTests",
+            dependencies: ["RickAndMortyDomain"]),
     ]
 )

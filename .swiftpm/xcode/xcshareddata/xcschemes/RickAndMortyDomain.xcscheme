@@ -40,8 +40,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:TestsPlans/RickAndMortyDomain.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -50,6 +55,16 @@
                BlueprintIdentifier = "RickAndMortyDomainTests"
                BuildableName = "RickAndMortyDomainTests"
                BlueprintName = "RickAndMortyDomainTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EndpointsTests"
+               BuildableName = "EndpointsTests"
+               BlueprintName = "EndpointsTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>

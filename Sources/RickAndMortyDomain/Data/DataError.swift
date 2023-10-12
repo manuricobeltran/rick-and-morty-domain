@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DataError: Error, Equatable {
+enum DataError: String, Error, Equatable {
     
     case invalidUrl
     case encoding
