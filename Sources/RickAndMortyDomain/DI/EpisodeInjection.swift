@@ -11,7 +11,7 @@ import Factory
 extension Container {
     
     var episodeRemoteDataSource: Factory<EpisodeRemoteDataSource> {
-        self { EpisodeRemoteDataSourceDefault() }.singleton
+        self { EpisodeRemoteDataSourceDefault(withNetwork: self.networkManager()) }.singleton
     }
     
     var episodeRepository: Factory<EpisodeRepository> {

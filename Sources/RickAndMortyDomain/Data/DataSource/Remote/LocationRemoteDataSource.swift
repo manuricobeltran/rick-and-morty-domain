@@ -18,7 +18,14 @@ protocol LocationRemoteDataSource {
     func getAllLocations(_ page: Int?) async throws -> PaginatedEntity<[LocationEntity]>
 }
 
-final class LocationRemoteDataSourceDefault: LocationRemoteDataSource { }
+final class LocationRemoteDataSourceDefault: LocationRemoteDataSource { 
+    
+    private let network: NetworkManager
+    
+    init(withNetwork network: NetworkManager) {
+        self.network = network
+    }
+}
 
 // MARK: Reactive
 extension LocationRemoteDataSourceDefault {
@@ -27,21 +34,21 @@ extension LocationRemoteDataSourceDefault {
         guard let request = API.Location.getLocations([id]).urlRequest else {
             return Fail(error: DataError.invalidUrl).eraseToAnyPublisher()
         }
-        return NetworkDataSource.run(request)
+        return network.run(request)
     }
     
     func getLocations(withIds ids: [Int]) -> AnyPublisher<[LocationEntity], DataError> {
         guard let request = API.Location.getLocations(ids).urlRequest else {
             return Fail(error: DataError.invalidUrl).eraseToAnyPublisher()
         }
-        return NetworkDataSource.run(request)
+        return network.run(request)
     }
     
     func getAllLocations(_ page: Int?) -> AnyPublisher<PaginatedEntity<[LocationEntity]>, DataError> {
         guard let request = API.Location.getAllLocations(page).urlRequest else {
             return Fail(error: DataError.invalidUrl).eraseToAnyPublisher()
         }
-        return NetworkDataSource.run(request)
+        return network.run(request)
     }
 }
 
@@ -52,20 +59,20 @@ extension LocationRemoteDataSourceDefault {
         guard let request = API.Location.getLocations([id]).urlRequest else {
             throw DataError.invalidUrl
         }
-        return try await NetworkDataSource.run(request)
+        return try await network.run(request)
     }
     
     func getLocations(withIds ids: [Int]) async throws -> [LocationEntity] {
         guard let request = API.Location.getLocations(ids).urlRequest else {
             throw DataError.invalidUrl
         }
-        return try await NetworkDataSource.run(request)
+        return try await network.run(request)
     }
     
     func getAllLocations(_ page: Int?) async throws -> PaginatedEntity<[LocationEntity]> {
         guard let request = API.Location.getAllLocations(page).urlRequest else {
             throw DataError.invalidUrl
         }
-        return try await NetworkDataSource.run(request)
+        return try await network.run(request)
     }
 }

@@ -11,7 +11,7 @@ import Factory
 extension Container {
     
     var locationRemoteDataSource: Factory<LocationRemoteDataSource> {
-        self { LocationRemoteDataSourceDefault() }.singleton
+        self { LocationRemoteDataSourceDefault(withNetwork: self.networkManager()) }.singleton
     }
     
     var locationRepository: Factory<LocationRepository> {

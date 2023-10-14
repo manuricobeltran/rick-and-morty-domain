@@ -7,11 +7,13 @@
 
 import XCTest
 import Combine
+import Factory
 @testable import RickAndMortyDomain
 
 
 class EpisodeEndpointsTests: XCTestCase {
     
+    private let network = Container.shared.networkManager()
     private let networkMonitor = NetworkMonitor.shared
     private let networkTimeout: CGFloat = 3.0
     
@@ -19,7 +21,6 @@ class EpisodeEndpointsTests: XCTestCase {
         try XCTSkipUnless(networkMonitor.isReachable, "Network connectivity needed for this test.")
     }
     
-    var sut: NetworkDataSource!
     var subscriptions = Set<AnyCancellable>()
     
     override func setUpWithError() throws {
@@ -38,7 +39,7 @@ class EpisodeEndpointsTests: XCTestCase {
         let promise = expectation(description: "Status code: 200")
         
         // when
-        NetworkDataSource.run(request)
+        network.run(request)
             .sink { completion in
                 if case let .failure(error) = completion {
                     XCTFail("Error: \(error.rawValue)")
@@ -59,7 +60,7 @@ class EpisodeEndpointsTests: XCTestCase {
         let promise = expectation(description: "Status code: 200")
         
         // when
-        NetworkDataSource.run(request)
+        network.run(request)
             .sink { completion in
                 if case let .failure(error) = completion {
                     XCTFail("Error: \(error.rawValue)")
@@ -80,7 +81,7 @@ class EpisodeEndpointsTests: XCTestCase {
         let promise = expectation(description: "Status code: 200")
         
         // when
-        NetworkDataSource.run(request)
+        network.run(request)
             .sink { completion in
                 if case let .failure(error) = completion {
                     XCTFail("Error: \(error.rawValue)")
@@ -101,7 +102,7 @@ class EpisodeEndpointsTests: XCTestCase {
         let promise = expectation(description: "Status code: 200")
         
         // when
-        NetworkDataSource.run(request)
+        network.run(request)
             .sink { completion in
                 if case let .failure(error) = completion {
                     XCTFail("Error: \(error.rawValue)")
@@ -122,7 +123,7 @@ class EpisodeEndpointsTests: XCTestCase {
         let promise = expectation(description: "Status code: 200")
         
         // when
-        NetworkDataSource.run(request)
+        network.run(request)
             .sink { completion in
                 if case let .failure(error) = completion {
                     XCTFail("Error: \(error.rawValue)")
@@ -143,7 +144,7 @@ class EpisodeEndpointsTests: XCTestCase {
         let promise = expectation(description: "Status code: 404")
         
         // when
-        NetworkDataSource.run(request)
+        network.run(request)
             .sink { completion in
                 if case .failure = completion {
                     promise.fulfill()

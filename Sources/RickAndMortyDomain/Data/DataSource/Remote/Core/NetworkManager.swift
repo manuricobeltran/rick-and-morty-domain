@@ -1,5 +1,5 @@
 //
-//  NetworkDataSource.swift
+//  NetworkManager.swift
 //  
 //
 //  Created by Manu Rico on 28/5/23.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-struct NetworkDataSource {
+class NetworkManager {
     // swiftlint:disable no_magic_numbers
     private static let statusCodeOk = 200...299
     private static let statusCodeBadRequest = 400
@@ -21,19 +21,21 @@ struct NetworkDataSource {
     private static let statusCodeServerError = 500...599
     // swiftlint:enable no_magic_numbers
     
-    private init() {
-        // Intentionally empty
+    private let session: URLSession
+    
+    init(withSession session: URLSession = URLSession.shared) {
+        self.session = session
     }
 }
 
 // MARK: Reactive methods
-extension NetworkDataSource {
+extension NetworkManager {
     
-    static func run(_ urlRequest: URLRequest) -> AnyPublisher<Void, DataError> {
-        URLSession.shared
+    func run(_ urlRequest: URLRequest) -> AnyPublisher<Void, DataError> {
+        session
             .dataTaskPublisher(for: urlRequest)
             .tryMap { _, response -> Void in
-                try processResponse(response)
+                try Self.processResponse(response)
             }
             .mapError { error in
                 error as? DataError ?? .unknown
@@ -42,11 +44,11 @@ extension NetworkDataSource {
             .eraseToAnyPublisher()
     }
     
-    static func run<D: Decodable>(_ urlRequest: URLRequest) -> AnyPublisher<D, DataError> {
-        URLSession.shared
+    func run<D: Decodable>(_ urlRequest: URLRequest) -> AnyPublisher<D, DataError> {
+        session
             .dataTaskPublisher(for: urlRequest)
             .tryMap { data, response -> Data in
-                try processResponse(response, data: data)
+                try Self.processResponse(response, data: data)
                 return data
             }
             .decode(type: D.self, decoder: JSONDecoder())
@@ -60,21 +62,21 @@ extension NetworkDataSource {
 
 // MARK: Async methods
 
-extension NetworkDataSource {
+extension NetworkManager {
     
-    static func run(_ urlRequest: URLRequest) async throws {
+    func run(_ urlRequest: URLRequest) async throws {
         do {
-            let (_, response) = try await URLSession.shared.data(for: urlRequest)
-            try processResponse(response)
+            let (_, response) = try await session.data(for: urlRequest)
+            try Self.processResponse(response)
         } catch {
             throw error as? DataError ?? .unknown
         }
     }
     
-    static func run<D: Decodable>(_ urlRequest: URLRequest) async throws -> D {
+    func run<D: Decodable>(_ urlRequest: URLRequest) async throws -> D {
         do {
-            let (data, response) = try await URLSession.shared.data(for: urlRequest)
-            try processResponse(response)
+            let (data, response) = try await session.data(for: urlRequest)
+            try Self.processResponse(response)
             return try JSONDecoder().decode(D.self, from: data)
         } catch {
             throw error as? DataError ?? .unknown
@@ -84,7 +86,7 @@ extension NetworkDataSource {
 
 // MARK: Error mapping
 
-private extension NetworkDataSource {
+private extension NetworkManager {
 
     static func processResponse(_ response: URLResponse, data: Data? = nil) throws {
         if

@@ -11,7 +11,7 @@ import Factory
 extension Container {
     
     var characterRemoteDataSource: Factory<CharacterRemoteDataSource> {
-        self { CharacterRemoteDataSourceDefault() }.singleton
+        self { CharacterRemoteDataSourceDefault(withNetwork: self.networkManager()) }.singleton
     }
     
     var characterRepository: Factory<CharacterRepository> {

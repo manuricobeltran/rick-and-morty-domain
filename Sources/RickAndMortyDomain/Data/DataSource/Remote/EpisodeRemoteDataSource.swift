@@ -18,7 +18,14 @@ protocol EpisodeRemoteDataSource {
     func getAllEpisodes(_ page: Int?) async throws -> PaginatedEntity<[EpisodeEntity]>
 }
 
-final class EpisodeRemoteDataSourceDefault: EpisodeRemoteDataSource { }
+final class EpisodeRemoteDataSourceDefault: EpisodeRemoteDataSource { 
+    
+    private let network: NetworkManager
+    
+    init(withNetwork network: NetworkManager) {
+        self.network = network
+    }
+}
 
 // MARK: Reactive
 extension EpisodeRemoteDataSourceDefault {
@@ -27,21 +34,21 @@ extension EpisodeRemoteDataSourceDefault {
         guard let request = API.Episode.getEpisodes([id]).urlRequest else {
             return Fail(error: DataError.invalidUrl).eraseToAnyPublisher()
         }
-        return NetworkDataSource.run(request)
+        return network.run(request)
     }
     
     func getEpisodes(withIds ids: [Int]) -> AnyPublisher<[EpisodeEntity], DataError> {
         guard let request = API.Episode.getEpisodes(ids).urlRequest else {
             return Fail(error: DataError.invalidUrl).eraseToAnyPublisher()
         }
-        return NetworkDataSource.run(request)
+        return network.run(request)
     }
     
     func getAllEpisodes(_ page: Int?) -> AnyPublisher<PaginatedEntity<[EpisodeEntity]>, DataError> {
         guard let request = API.Episode.getAllEpisodes(page).urlRequest else {
             return Fail(error: DataError.invalidUrl).eraseToAnyPublisher()
         }
-        return NetworkDataSource.run(request)
+        return network.run(request)
     }
 }
 
@@ -52,20 +59,20 @@ extension EpisodeRemoteDataSourceDefault {
         guard let request = API.Episode.getEpisodes([id]).urlRequest else {
             throw DataError.invalidUrl
         }
-        return try await NetworkDataSource.run(request)
+        return try await network.run(request)
     }
     
     func getEpisodes(withIds ids: [Int]) async throws -> [EpisodeEntity] {
         guard let request = API.Episode.getEpisodes(ids).urlRequest else {
             throw DataError.invalidUrl
         }
-        return try await NetworkDataSource.run(request)
+        return try await network.run(request)
     }
     
     func getAllEpisodes(_ page: Int?) async throws -> PaginatedEntity<[EpisodeEntity]> {
         guard let request = API.Episode.getAllEpisodes(page).urlRequest else {
             throw DataError.invalidUrl
         }
-        return try await NetworkDataSource.run(request)
+        return try await network.run(request)
     }
 }
