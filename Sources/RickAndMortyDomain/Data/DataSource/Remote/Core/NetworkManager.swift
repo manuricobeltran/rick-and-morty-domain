@@ -65,21 +65,17 @@ extension NetworkManager {
 extension NetworkManager {
     
     func run(_ urlRequest: URLRequest) async throws {
-        do {
-            let (_, response) = try await session.data(for: urlRequest)
-            try Self.processResponse(response)
-        } catch {
-            throw error as? DataError ?? .unknown
-        }
+        let (_, response) = try await session.data(for: urlRequest)
+        try Self.processResponse(response)
     }
     
     func run<D: Decodable>(_ urlRequest: URLRequest) async throws -> D {
+        let (data, response) = try await session.data(for: urlRequest)
+        try Self.processResponse(response)
         do {
-            let (data, response) = try await session.data(for: urlRequest)
-            try Self.processResponse(response)
             return try JSONDecoder().decode(D.self, from: data)
         } catch {
-            throw error as? DataError ?? .unknown
+            throw DataError.decoding
         }
     }
 }
