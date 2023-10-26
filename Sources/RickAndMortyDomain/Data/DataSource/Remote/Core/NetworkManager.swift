@@ -40,7 +40,6 @@ extension NetworkManager {
             .mapError { error in
                 error as? DataError ?? .unknown
             }
-            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
@@ -48,14 +47,13 @@ extension NetworkManager {
         session
             .dataTaskPublisher(for: urlRequest)
             .tryMap { data, response -> Data in
-                try Self.processResponse(response, data: data)
+                try Self.processResponse(response)
                 return data
             }
             .decode(type: D.self, decoder: JSONDecoder())
             .mapError { error in
                 error as? DataError ?? .decoding
             }
-            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }
@@ -84,11 +82,12 @@ extension NetworkManager {
 
 private extension NetworkManager {
 
-    static func processResponse(_ response: URLResponse, data: Data? = nil) throws {
-        if
-            let response: HTTPURLResponse = response as? HTTPURLResponse,
-            let error = checkStatusCodeFromResponse(response) {
-                throw error
+    static func processResponse(_ response: URLResponse) throws {
+        guard let response = response as? HTTPURLResponse else {
+            throw DataError.unknown
+        }
+        if let error = checkStatusCodeFromResponse(response) {
+            throw error
         }
     }
 
